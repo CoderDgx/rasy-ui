@@ -30,7 +30,7 @@ const Alert: React.FC<AlertProps> = (props) => {
   
   return (
     isShow?
-    <div className={classes}>
+    <div className={classes} test-dataid="test-alert">
       <span>{title}</span>
       {closable? <CloseOutlined onClick={() => setIsShow(false)} className="alt-close"/> : null}
       {message? <div className="alt-msg">{message}</div>: null}
