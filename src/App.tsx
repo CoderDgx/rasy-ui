@@ -1,6 +1,9 @@
 import React from 'react';
 // import Button, {ButtonType, ButtonSize} from './components/Button/button'
-import Alert from './components/Alert/alert';
+// import Alert from './components/Alert/alert';
+import Menu from './components/Menu/menu';
+import MenuItem from './components/Menu/menuItem';
+import SubMenu from './components/Menu/subMenu';
 
 function App() {
   return (
@@ -12,12 +15,18 @@ function App() {
         }}
       >
         <h3>组件演示</h3>
-        <React.Fragment key=".1">
-          <Alert closable title="this is Success" type="success" />
-          <Alert closable title="this is Danger!" type="danger" />
-          <Alert closable={false} title="this is Warning!" type="warning" />
-          <Alert closable title="this is message!" message="message" />
-        </React.Fragment>
+        <Menu
+          defaultIndex="0"
+          mode="horizontal"
+        >
+          <MenuItem>cool link</MenuItem>
+          <MenuItem>cool link 2</MenuItem>
+          <MenuItem disabled>disabled</MenuItem>
+          <SubMenu title="下拉选项">
+            <MenuItem>下拉选项一</MenuItem>
+            <MenuItem>下拉选项二</MenuItem>
+          </SubMenu>
+        </Menu>
       </div>
     </div>
   );
