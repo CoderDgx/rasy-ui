@@ -17,7 +17,9 @@ function App() {
         <h3>组件演示</h3>
         <Menu
           defaultIndex="0"
-          mode="horizontal"
+          mode="vertical"
+          onSelect={(index) => {alert(index)}}
+          defaultOpenSubMenus={['3']}
         >
           <MenuItem>cool link</MenuItem>
           <MenuItem>cool link 2</MenuItem>
