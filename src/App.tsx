@@ -6,6 +6,7 @@ import React from 'react';
 // import SubMenu from './components/Menu/subMenu';
 import Tabs from './components/Tabs/tabs';
 import TabItem from './components/Tabs/tabItem';
+import {PlayCircleOutlined} from '@ant-design/icons'
 
 function App() {
   return (
@@ -16,10 +17,18 @@ function App() {
       }}
     >
       <h3>组件演示</h3>
-      <Tabs defaultIndex={0} type="line" onSelect={function noRefCheck() {}}>
-        <TabItem label="选项卡一">this is content one</TabItem>
-        <TabItem label="选项卡二">this is content two</TabItem>
-        <TabItem label="用户管理">this is content three</TabItem>
+      <Tabs defaultIndex={0} onSelect={function noRefCheck() {}} type="card">
+        <TabItem
+          label={
+            <>
+              <PlayCircleOutlined />
+              自定义图标
+            </>
+          }
+        >
+          this is card one
+        </TabItem>
+        <TabItem label="tab2">this is content two</TabItem>
       </Tabs>
     </div>
   );

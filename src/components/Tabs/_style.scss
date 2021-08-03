@@ -1,13 +1,12 @@
 .tabs {
 
-  .tab-title {
+  .tabs-line {
     display: flex;
     flex-wrap: wrap;
     padding-left: 0;
-    margin-bottom: 30px;
     list-style: none;
     border-bottom: $border-width solid $border-color;
-    
+
     >.tab-item {
       padding: .5rem 1rem;
       cursor: pointer;
@@ -29,8 +28,52 @@
         color: $tab-item-active-color;
         border-bottom: $tab-item-active-border-width solid $tab-item-active-color;
       }
-
     }
   }
-  
+
+  .tabs-card {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    list-style: none;
+
+
+    >.tab-item {
+      padding: .5rem 1rem;
+      cursor: pointer;
+      margin-left: -$border-width;
+      transition: $tabs-transition;
+      border: $border-width solid $white;
+      border-bottom-color: $border-color;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+
+      &.is-disabled {
+        color: $tab-item-disabled-color;
+        pointer-events: none;
+        cursor: default;
+      }
+
+      &:hover {
+        color: $tab-item-active-color;
+      }
+
+      &.is-active {
+        z-index: 100;
+        color: $tab-item-active-color;
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+        border-color: $tab-item-active-color $tab-item-active-color $white $tab-item-active-color;
+      }
+    }
+
+  }
+
+  .tab-content {
+    margin-top: 1rem;
+  }
+
 }
