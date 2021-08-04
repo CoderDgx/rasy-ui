@@ -1,13 +1,12 @@
 import React from 'react';
 // import Button, {ButtonType, ButtonSize} from './components/Button/button'
-// import Alert from './components/Alert/alert';
+import Alert from './components/Alert/alert';
 // import Menu from './components/Menu/menu';
 // import MenuItem from './components/Menu/menuItem';
 // import SubMenu from './components/Menu/subMenu';
-import Tabs from './components/Tabs/tabs';
-import TabItem from './components/Tabs/tabItem';
-import {PlayCircleOutlined} from '@ant-design/icons'
-
+// import Tabs from './components/Tabs/tabs';
+// import TabItem from './components/Tabs/tabItem';
+// import Icon from './components/Icon/icon';
 function App() {
   return (
     <div
@@ -17,19 +16,18 @@ function App() {
       }}
     >
       <h3>组件演示</h3>
-      <Tabs defaultIndex={0} onSelect={function noRefCheck() {}} type="card">
-        <TabItem
-          label={
-            <>
-              <PlayCircleOutlined />
-              自定义图标
-            </>
-          }
-        >
-          this is card one
-        </TabItem>
-        <TabItem label="tab2">this is content two</TabItem>
-      </Tabs>
+      <React.Fragment key=".1">
+        <Alert closable title="this is Success" type="success" />
+        <Alert closable title="this is Danger!" type="danger" />
+        <Alert closable={false} title="this is Warning!" type="warning" />
+        <Alert
+          closable
+          message="this is a long description"
+          onClose={function noRefCheck() {}}
+          title="提示标题欧亲"
+          type="default"
+        />
+      </React.Fragment>
     </div>
   );
 }
