@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import classNames from 'classnames';
 import { CloseOutlined } from '@ant-design/icons'
-import Icon from '../Icon/icon';
 
 export type AlertType = "success" | "default" | "warning" | "danger";
 
@@ -29,13 +28,14 @@ const Alert: React.FC<AlertProps> = (props) => {
     [`alt-${type}`]: type,
   })
   
-  return isShow ? (
+  return (
+    isShow?
     <div className={classes} test-dataid="test-alert">
       <span>{title}</span>
-      {closable ? <Icon icon="times" className="alt-close" onClick={() => console.log(123)} /> : null}
-      {message ? <div className="alt-msg">{message}</div> : null}
-    </div>
-  ) : null;
+      {closable? <CloseOutlined onClick={() => setIsShow(false)} className="alt-close"/> : null}
+      {message? <div className="alt-msg">{message}</div>: null}
+    </div> : null
+  );
 }
 
 Alert.defaultProps = {
