@@ -7,6 +7,9 @@
   font-size: $font-size-base;
   font-weight: $font-weight-normal;
   line-height: 1.5;
+  .alt-show {
+    display: none;
+  }
 }
 
 .alt-close {
