@@ -1,6 +1,6 @@
 import React from 'react';
-// import Button, {ButtonType, ButtonSize} from './components/Button/button'
-import Alert from './components/Alert/alert';
+import Button, {ButtonType, ButtonSize} from './components/Button/button'
+// import Alert from './components/Alert/alert';
 // import Menu from './components/Menu/menu';
 // import MenuItem from './components/Menu/menuItem';
 // import SubMenu from './components/Menu/subMenu';
@@ -17,16 +17,12 @@ function App() {
     >
       <h3>组件演示</h3>
       <React.Fragment key=".1">
-        <Alert closable title="this is Success" type="success" />
-        <Alert closable title="this is Danger!" type="danger" />
-        <Alert closable={false} title="this is Warning!" type="warning" />
-        <Alert
-          closable
-          message="this is a long description"
-          onClose={function noRefCheck() {}}
-          title="提示标题欧亲"
-          type="default"
-        />
+        <Button btnType="default" disabled={false} size="lg">
+          large button
+        </Button>
+        <Button btnType="default" disabled={false} size="sm">
+          small button
+        </Button>
       </React.Fragment>
     </div>
   );
