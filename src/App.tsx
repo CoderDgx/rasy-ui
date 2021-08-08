@@ -1,5 +1,5 @@
 import React from 'react';
-import Button, {ButtonType, ButtonSize} from './components/Button/button'
+// import Button from './components/Button/button'
 // import Alert from './components/Alert/alert';
 // import Menu from './components/Menu/menu';
 // import MenuItem from './components/Menu/menuItem';
@@ -7,6 +7,7 @@ import Button, {ButtonType, ButtonSize} from './components/Button/button'
 // import Tabs from './components/Tabs/tabs';
 // import TabItem from './components/Tabs/tabItem';
 // import Icon from './components/Icon/icon';
+import Input from './components/Input/input';
 function App() {
   return (
     <div
@@ -17,12 +18,8 @@ function App() {
     >
       <h3>组件演示</h3>
       <React.Fragment key=".1">
-        <Button btnType="default" disabled={false} size="lg">
-          large button
-        </Button>
-        <Button btnType="default" disabled={false} size="sm">
-          small button
-        </Button>
+        <Input defaultValue="prepend text" prepend="https://" />
+        <Input append=".com" defaultValue="google" />
       </React.Fragment>
     </div>
   );
