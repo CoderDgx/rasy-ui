@@ -71,7 +71,7 @@
 .input-group-append {
   display: flex;
   align-items: center;
-  padding: $input-padding-y $input-padding-x;
+  padding: $input-padding-y $input-padding-y;
   margin-bottom: 0; // Allow use of <label> elements by overriding our default margin-bottom
   font-size: $input-font-size; // Match inputs
   font-weight: $font-weight-normal;
