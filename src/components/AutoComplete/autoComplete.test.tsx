@@ -167,20 +167,5 @@ describe("test AutoComplete component", () => {
     expect(inputNode.value).toBe("caruso");
   });
 
-  // it("async fetchSuggestions should works fine", async () => {
-  //    const wrapper = render(<AutoComplete {...asyncProps} />);
-  //    const inputNode = wrapper.getByPlaceholderText(
-  //      "async"
-  //    ) as HTMLInputElement;
-  //    fireEvent.change(inputNode, { target: { value: "CoderDgx" } });
-  //    await waitFor(() => {
-  //      expect(wrapper.queryByText("Name: CoderDgx")).toBeInTheDocument();
-  //      expect(
-  //        wrapper.queryByText("url: https://api.github.com/users/CoderDgx")
-  //      ).toBeInTheDocument();
-  //    });
-  //    expect(
-  //      wrapper.container.querySelectorAll(".suggestion-item").length
-  //    ).toEqual(1);
-  // });
+  // 
 });

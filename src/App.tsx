@@ -8,39 +8,30 @@ import React from 'react';
 // import TabItem from './components/Tabs/tabItem';
 // import Icon from './components/Icon/icon';
 // import Input from './components/Input/input';
-import AutoComplete, { DataSourceType } from './components/AutoComplete/autoComplete';
-
-interface GithubUserProps {
-  value: string;
-  url: string;
-}
+// import AutoComplete, { DataSourceType } from './components/AutoComplete/autoComplete';
+import Select from './components/Select/select';
+import Option from './components/Select/option'
 function App() {
-  const handleFetch = (query: string) => {
-    return fetch("https://api.github.com/search/users?q=" + query)
-      .then((res) => res.json())
-      .then(({ items }) => {
-        return items
-          .slice(0, 10)
-          .map((item: any) => ({ value: item.login, ...item }));
-      });
-  };
-
-  const renderOption = (item: DataSourceType) => {
-    const itemWithGithub = item as DataSourceType<GithubUserProps>;
-    return (
-      <>
-        <b>Name: {itemWithGithub.value}</b>
-        <span>url: {itemWithGithub.url}</span>
-      </>
-    );
-  };
   return (
-    <div>
-      <AutoComplete
-        fetchSuggestions={handleFetch}
-        placeholder="输入 Github 用户名试试"
-        renderOption={renderOption}
-      />
+    <div
+      style={{
+        padding: "20px 40px",
+        width: "500px",
+      }}
+    >
+      <h3>组件演示</h3>
+      <Select
+        name="viking-select"
+        onChange={function noRefCheck() {}}
+        onVisibleChange={function noRefCheck() {}}
+        placeholder="请选择"
+      >
+        <Option value="nihao" label="你好"/>
+        <Option value="nihao2" />
+        <Option value="nihao3" />
+        <Option disabled value="disabled" />
+        <Option value="nihao5" />
+      </Select>
     </div>
   );
 }

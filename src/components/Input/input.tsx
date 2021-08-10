@@ -22,6 +22,7 @@ export interface InputProps
   /**添加后缀 用于配置一些固定组合 */
   append?: string | ReactElement;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onIconClick?: React.MouseEventHandler<SVGSVGElement>;
 }
 
 /**
@@ -34,8 +35,18 @@ export interface InputProps
  * 支持 HTMLInput 的所有基本属性
  */
 export const Input: FC<InputProps> = (props) => {
-  const { disabled, size, icon, prepend, append, style, ...restProps } = props;
-  const cnames = classNames("input-wrapper", {
+  const {
+    disabled,
+    size,
+    icon,
+    prepend,
+    append,
+    style,
+    className,
+    onIconClick,
+    ...restProps
+  } = props;
+  const cnames = classNames("input-wrapper", className, {
     [`input-size-${size}`]: size,
     "is-disabled": disabled,
     "input-group": prepend || append,
@@ -55,14 +66,10 @@ export const Input: FC<InputProps> = (props) => {
       {prepend && <div className="input-group-prepend">{prepend}</div>}
       {icon && (
         <div className="icon-wrapper">
-          <Icon icon={icon} title={`title-${icon}`} />
+          <Icon icon={icon} title={`title-${icon}`} onClick={onIconClick} />
         </div>
       )}
-      <input
-        className="input-inner"
-        disabled={disabled}
-        {...restProps}
-      />
+      <input className="input-inner" disabled={disabled} {...restProps} />
       {append && <div className="input-group-append">{append}</div>}
     </div>
   );
