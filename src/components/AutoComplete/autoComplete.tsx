@@ -1,11 +1,11 @@
 import React, {
   FC,
   useState,
+  ChangeEvent,
+  KeyboardEvent,
+  ReactElement,
   useEffect,
   useRef,
-  ChangeEvent,
-  ReactElement,
-  KeyboardEvent,
 } from "react";
 import classNames from "classnames";
 import Input, { InputProps } from "../Input/input";
@@ -13,11 +13,9 @@ import Icon from "../Icon/icon";
 import Transition from "../Transition/transition";
 import useDebounce from "../../hooks/useDebounce";
 import useClickOutside from "../../hooks/useClickOutside";
-
 interface DataSourceObject {
   value: string;
 }
-
 export type DataSourceType<T = {}> = T & DataSourceObject;
 export interface AutoCompleteProps extends Omit<InputProps, "onSelect"> {
   fetchSuggestions: (
@@ -37,32 +35,32 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   } = props;
 
   const [inputValue, setInputValue] = useState(value as string);
-  const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
+  const [suggestions, setSugestions] = useState<DataSourceType[]>([]);
   const [loading, setLoading] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState(-1);
-  const componentRef = useRef<HTMLDivElement>(null);
   const triggerSearch = useRef(false);
+  const componentRef = useRef<HTMLDivElement>(null);
   const debouncedValue = useDebounce(inputValue, 300);
   useClickOutside(componentRef, () => {
-    setSuggestions([]);
+    setSugestions([]);
   });
   useEffect(() => {
     if (debouncedValue && triggerSearch.current) {
-      setSuggestions([]);
+      setSugestions([]);
       const results = fetchSuggestions(debouncedValue);
       if (results instanceof Promise) {
         setLoading(true);
         results.then((data) => {
-          setSuggestions(data);
           setLoading(false);
+          setSugestions(data);
           if (data.length > 0) {
             setShowDropdown(true);
           }
         });
       } else {
-        setSuggestions(results);
-        setLoading(true);
+        setSugestions(results);
+        setShowDropdown(true);
         if (results.length > 0) {
           setShowDropdown(true);
         }
@@ -72,7 +70,6 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     }
     setHighlightIndex(-1);
   }, [debouncedValue, fetchSuggestions]);
-
   const highlight = (index: number) => {
     if (index < 0) index = 0;
     if (index >= suggestions.length) {
@@ -80,7 +77,6 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     }
     setHighlightIndex(index);
   };
-
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {
       case "Enter":
@@ -101,13 +97,11 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         break;
     }
   };
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setInputValue(value);
     triggerSearch.current = true;
   };
-
   const handleSelect = (item: DataSourceType) => {
     setInputValue(item.value);
     setShowDropdown(false);
@@ -116,11 +110,9 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     }
     triggerSearch.current = false;
   };
-
   const renderTemplate = (item: DataSourceType) => {
     return renderOption ? renderOption(item) : item.value;
   };
-
   const generateDropdown = () => {
     return (
       <Transition
@@ -128,7 +120,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         animation="zoom-in-top"
         timeout={300}
         onExited={() => {
-          setSuggestions([]);
+          setSugestions([]);
         }}
       >
         <ul className="suggestion-list">
@@ -138,14 +130,14 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
             </div>
           )}
           {suggestions.map((item, index) => {
-            const classes = classNames("suggestion-item", {
+            const cnames = classNames("suggestion-item", {
               "is-active": index === highlightIndex,
             });
             return (
               <li
-                onClick={() => handleSelect(item)}
                 key={index}
-                className={classes}
+                className={cnames}
+                onClick={() => handleSelect(item)}
               >
                 {renderTemplate(item)}
               </li>
@@ -155,7 +147,6 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
       </Transition>
     );
   };
-
   return (
     <div className="auto-complete" ref={componentRef}>
       <Input
