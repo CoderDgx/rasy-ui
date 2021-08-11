@@ -43,7 +43,7 @@ export const Select: FC<SelectProps> = (props) => {
     "input-disabled": disabled,
   });
   const optionClasses = classNames("option", {
-    "multiple-option-show": multiple && multipleOptionOpen,
+    "multiple-option-show": multiple && !multipleOptionOpen,
   });
 
   const handleClick = () => {
@@ -57,10 +57,13 @@ export const Select: FC<SelectProps> = (props) => {
     }
   };
 
-  const handleClickTimesDeleteOption = (index: number) => {
-    // let newValue = [...(value as string[] || [])];
-    // newValue.splice(index, 1);
-    // setValue(newValue)
+  console.log(optionOpen, multipleOptionOpen);
+
+  const handleClickTimesDeleteOption = (e:React.MouseEvent<SVGSVGElement, MouseEvent> ,index: number) => {
+    e.stopPropagation();
+    let newValue = [...(value as string[] || [])];
+    newValue.splice(index, 1);
+    setValue(newValue)
   }
 
 
@@ -72,6 +75,7 @@ export const Select: FC<SelectProps> = (props) => {
           index: `${i}`,
           setValue: setValue,
           multiple: multiple,
+          setOptionOpen: setOptionOpen,
           multipleInputValue: multiple ? (value as string[]) : undefined,
         });
       } else {
@@ -87,7 +91,8 @@ export const Select: FC<SelectProps> = (props) => {
       <div className="input" onClick={handleClick}>
         <input
           className="input-inner"
-          value={multiple ? (value ? " " : placeholder) : value}
+          name={name}
+          value={multiple ? (value?.length ? " " : placeholder) : value}
           placeholder={placeholder}
           readOnly
           disabled={disabled}
@@ -99,7 +104,7 @@ export const Select: FC<SelectProps> = (props) => {
               return (
                 <span className="title" key={index}>
                   {item}
-                  <Icon className="check" icon="times" onClick={() => handleClickTimesDeleteOption(index)}/>
+                  <Icon className="times" icon="times" onClick={(e) => handleClickTimesDeleteOption(e, index)}/>
                 </span>
               );
             })}

@@ -13,27 +13,49 @@ import Select from './components/Select/select';
 import Option from './components/Select/option'
 function App() {
   return (
-    <div
-      style={{
-        padding: "20px 40px",
-        width: "500px",
-      }}
-    >
-      <h3>组件演示</h3>
-      <Select
-        multiple
-        name="viking-select"
-        onChange={function noRefCheck() {}}
-        onVisibleChange={function noRefCheck() {}}
-        placeholder="支持多选欧！"
+    <>
+      <div
+        style={{
+          padding: "20px 40px",
+          width: "500px",
+        }}
       >
-        <Option value="nihao"/>
-        <Option value="nihao2" />
-        <Option value="nihao3" />
-        <Option value="viking" />
-        <Option value="viking2" />
-      </Select>
-    </div>
+        <h3>组件演示</h3>
+        <Select
+          multiple
+          name="viking-select"
+          onChange={function noRefCheck() {}}
+          onVisibleChange={function noRefCheck() {}}
+          placeholder="支持多选欧！"
+        >
+          <Option value="nihao" />
+          <Option value="nihao2" />
+          <Option value="nihao3" />
+          <Option value="viking" />
+          <Option value="viking2" />
+        </Select>
+      </div>
+      <div
+        style={{
+          padding: "20px 40px",
+          width: "500px",
+        }}
+      >
+        <h3>组件演示</h3>
+        <Select
+          name="viking-select"
+          placeholder="请选择"
+          onChange={function noRefCheck() {}}
+          onVisibleChange={function noRefCheck() {}}
+        >
+          <Option value="nihao" />
+          <Option value="nihao2" />
+          <Option value="nihao3" />
+          <Option disabled value="disabled" />
+          <Option value="nihao5" />
+        </Select>
+      </div>
+    </>
   );
 }
 

@@ -20,6 +20,7 @@
       left: 0;
       z-index: 100;
       max-width: 388px;
+      cursor: default;
       .title {
         padding: .1rem .25rem;
         margin-left: .5rem;
@@ -30,8 +31,9 @@
         border-radius: $border-radius;
       }
 
-      .check {
+      .times {
         margin-left: .5rem;
+        cursor: pointer;
       }
     }
 
