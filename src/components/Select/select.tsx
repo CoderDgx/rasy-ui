@@ -34,26 +34,45 @@ export const Select: FC<SelectProps> = (props) => {
     children,
   } = props;
   const [optionOpen, setOptionOpen] = useState(false);
-  const [value, setValue] = useState(defaultValue)
+  const [multipleOptionOpen, setMultipleOptionOpen] = useState(false);
+  const [value, setValue] = useState(defaultValue);
   const iconClasses = classNames("icon-wrapper", {
-    "icon-active": optionOpen
+    "icon-active": multiple ? multipleOptionOpen : optionOpen,
   });
   const selectClasses = classNames("select", className, {
-    "is-disabled": disabled
-  })
-  
+    "input-disabled": disabled,
+  });
+  const optionClasses = classNames("option", {
+    "multiple-option-show": multiple && multipleOptionOpen,
+  });
+
   const handleClick = () => {
-    if(!disabled) {
-      setOptionOpen(!optionOpen)
-    } 
+    if (!disabled && multiple) {
+      setOptionOpen(true);
+    }
+    if (!disabled && !multiple) {
+      setOptionOpen(!optionOpen);
+    } else if (!disabled) {
+      setMultipleOptionOpen(!multipleOptionOpen);
+    }
+  };
+
+  const handleClickTimesDeleteOption = (index: number) => {
+    // let newValue = [...(value as string[] || [])];
+    // newValue.splice(index, 1);
+    // setValue(newValue)
   }
+
 
   const renderChildren = () => {
     const childrenComponent = Children.map(children, (child, i) => {
       const childElement = child as FunctionComponentElement<OptionProps>;
       if (childElement.type.displayName === "Option") {
         return cloneElement(childElement, {
-          setValue: setValue
+          index: `${i}`,
+          setValue: setValue,
+          multiple: multiple,
+          multipleInputValue: multiple ? (value as string[]) : undefined,
         });
       } else {
         console.error(
@@ -61,19 +80,31 @@ export const Select: FC<SelectProps> = (props) => {
         );
       }
     });
-    return <ul className="option">{childrenComponent}</ul>;
+    return <ul className={optionClasses}>{childrenComponent}</ul>;
   };
   return (
-    <div className={selectClasses} onClick={handleClick}>
-      <div className="input">
+    <div className={selectClasses}>
+      <div className="input" onClick={handleClick}>
         <input
           className="input-inner"
-          value={value || ""}
+          value={multiple ? (value ? " " : placeholder) : value}
           placeholder={placeholder}
           readOnly
           disabled={disabled}
         />
         <Icon icon="angle-down" className={iconClasses}></Icon>
+        {multiple && value && (
+          <div className="select-item">
+            {(value as string[]).map((item, index) => {
+              return (
+                <span className="title" key={index}>
+                  {item}
+                  <Icon className="check" icon="times" onClick={() => handleClickTimesDeleteOption(index)}/>
+                </span>
+              );
+            })}
+          </div>
+        )}
       </div>
       {optionOpen && renderChildren()}
     </div>

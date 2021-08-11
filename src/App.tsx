@@ -21,16 +21,17 @@ function App() {
     >
       <h3>组件演示</h3>
       <Select
+        multiple
         name="viking-select"
         onChange={function noRefCheck() {}}
         onVisibleChange={function noRefCheck() {}}
-        placeholder="请选择"
+        placeholder="支持多选欧！"
       >
-        <Option value="nihao" label="你好"/>
+        <Option value="nihao"/>
         <Option value="nihao2" />
         <Option value="nihao3" />
-        <Option disabled value="disabled" />
-        <Option value="nihao5" />
+        <Option value="viking" />
+        <Option value="viking2" />
       </Select>
     </div>
   );
