@@ -1,5 +1,6 @@
 import React, {
   useState,
+  useRef,
   Children,
   cloneElement,
   FC,
@@ -9,6 +10,7 @@ import React, {
 import classNames from "classnames";
 import Icon from "../Icon/icon";
 import { OptionProps } from "./option";
+import useClickOutside from "../../hooks/useClickOutside";
 
 interface SelectProps {
   defaultValue?: string | string[];
@@ -34,8 +36,15 @@ export const Select: FC<SelectProps> = (props) => {
     children,
   } = props;
   const [optionOpen, setOptionOpen] = useState(false);
+  const componentRef = useRef<HTMLDivElement>(null);
   const [multipleOptionOpen, setMultipleOptionOpen] = useState(false);
   const [value, setValue] = useState(defaultValue);
+
+  useClickOutside(componentRef, () => {
+    setOptionOpen(false);
+    setMultipleOptionOpen(false)
+  });
+
   const iconClasses = classNames("icon-wrapper", {
     "icon-active": multiple ? multipleOptionOpen : optionOpen,
   });
@@ -45,7 +54,6 @@ export const Select: FC<SelectProps> = (props) => {
   const optionClasses = classNames("option", {
     "multiple-option-show": multiple && !multipleOptionOpen,
   });
-
   const handleClick = () => {
     if (!disabled && multiple) {
       setOptionOpen(true);
@@ -59,13 +67,15 @@ export const Select: FC<SelectProps> = (props) => {
 
   console.log(optionOpen, multipleOptionOpen);
 
-  const handleClickTimesDeleteOption = (e:React.MouseEvent<SVGSVGElement, MouseEvent> ,index: number) => {
+  const handleClickTimesDeleteOption = (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    index: number
+  ) => {
     e.stopPropagation();
-    let newValue = [...(value as string[] || [])];
+    let newValue = [...((value as string[]) || [])];
     newValue.splice(index, 1);
-    setValue(newValue)
-  }
-
+    setValue(newValue);
+  };
 
   const renderChildren = () => {
     const childrenComponent = Children.map(children, (child, i) => {
@@ -87,7 +97,7 @@ export const Select: FC<SelectProps> = (props) => {
     return <ul className={optionClasses}>{childrenComponent}</ul>;
   };
   return (
-    <div className={selectClasses}>
+    <div className={selectClasses} ref={componentRef}>
       <div className="input" onClick={handleClick}>
         <input
           className="input-inner"
@@ -104,7 +114,11 @@ export const Select: FC<SelectProps> = (props) => {
               return (
                 <span className="title" key={index}>
                   {item}
-                  <Icon className="times" icon="times" onClick={(e) => handleClickTimesDeleteOption(e, index)}/>
+                  <Icon
+                    className="times"
+                    icon="times"
+                    onClick={(e) => handleClickTimesDeleteOption(e, index)}
+                  />
                 </span>
               );
             })}
