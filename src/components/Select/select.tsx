@@ -12,7 +12,7 @@ import Icon from "../Icon/icon";
 import { OptionProps } from "./option";
 import useClickOutside from "../../hooks/useClickOutside";
 
-interface SelectProps {
+export interface SelectProps {
   defaultValue?: string | string[];
   placeholder?: string;
   disabled?: boolean;
